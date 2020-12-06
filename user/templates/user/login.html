@@ -1,0 +1,62 @@
+{% extends 'ask/index.html' %}
+{% block content %}
+  
+
+
+<body class="index">
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-darkNew ">
+  <h3 class="text-light">ASK</h3>
+  
+  
+	  
+    <ul class="navbar-nav  ml-auto" >
+		{% if user.is_authenticated %}
+		<li class="nav-item ">
+		  <h5>
+		  <a class="nav-link text-light p-2" href="{% url 'inbox' request.user.id %} ">
+			  Inbox
+			  <i class="fas fa-archive"></i>
+		  </a>
+		  </h5> 
+		</li>
+		{% endif %}
+    </ul>
+</nav>
+
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-12 d-flex justify-content-center">
+			<div class="form-content shadow-lg ">
+				<h3 class="text-center mb-4">Login</h3>
+				<hr>
+				<form method="POST">
+					{{form.errors}}
+					{% csrf_token %}
+				  <div class="form-group">
+				    <label for="InputUsername">Username</label>
+				    {{form.username}}
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Password</label>
+					{{form.password}}
+				  </div>
+				  <button type="submit" class="btn btn-primary btn-block">Login</button>
+				<p class="m-0 p-0 text-center mt-3">if you don't have an account <a href="{% url 'register' %} ">Register</a></p>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
+
+
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% extends 'ask/index.html' %}
+{% load static  %}
+{% block content %}
+  
+
+
+<body class="index">
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-darkNew ">
+  <h3 class="text-light">ASK</h3>
+    <ul class="navbar-nav  ml-auto" >
+      <li class="nav-item ">
+        <h5>
+        <a class="nav-link text-light p-2" href="{% url 'profile' request.user.profile.slug %}">
+        	Profile
+        	<i class="far fa-user-circle"></i>
+        </a>
+    	</h5> 
+      </li>
+    </ul>
+</nav>
+
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-12 d-flex flex-column align-items-center">
+			{% for massegee in massegesinbox %}
+      <div class="form-content-inbox shadow-lg overflow-auto p-3 mt-2 ">
+        <form method="POST" action="{% url 'delete' massegee.slug %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-sm">
+            X
+          </a>
+        </button>
+        <h6 class="p-2 text-center">
+         {{massegee.messages}}
+        </h6>
+      </div>
+      {% endfor %}
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+    
+</body>
+</html>
+
+{% endblock content %}

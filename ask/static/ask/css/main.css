@@ -1,0 +1,55 @@
+.form-content{
+	background: #fff;
+	padding: 3em;
+	border-radius: 20px;
+	margin-top: 10rem;
+	width: 400px;
+}
+
+.index{
+	background-image: url('../image/backgroundindex.png');
+	background-size: cover;
+}
+
+.bg-darkNew{
+	background-color: #003049;
+}
+
+.form-content-inbox{
+	background: #fff;
+	border-radius: 20px;
+	width: 70%;
+}
+
+@media (max-width: 576px) { 
+
+	.form-content-inbox{
+		background: #fff;
+		border-radius: 20px;
+		width: 100%;
+	}
+
+}
+
+.form-content-massage{
+	background: #fff;
+	border-radius: 20px;
+	width: 70%;
+	margin: 9em auto;
+}
+
+
+@media (max-width: 576px) { 
+
+	.form-content-massage{
+		background: #fff;
+		border-radius: 20px;
+		width: 100%;
+	}
+
+}
+
+
+.updateform{
+	display: none;
+}
