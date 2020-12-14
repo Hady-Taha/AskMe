@@ -5,8 +5,8 @@ from user.models import Profile
 
 def inbox(request,slug):
     if request.user.profile.slug != slug:
-      profileuser=request.user.profile.slug
-      return redirect(f'/inbox/{profileuser}')
+        profileuser=request.user.profile.slug
+        return redirect(f'/inbox/{profileuser}')
     massegesinbox=Message.objects.filter(slug=slug)
     context={
         'title':'inbox',

@@ -2,120 +2,123 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
+
 <body class="index">
 
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-darkNew  ">
-	
-  <h3 class="text-light">ASK</h3>
-    <ul class="navbar-nav  ml-auto " >
-	  	  	
-		
-		{% if user.is_authenticated %}
-		<li class="nav-item ">
-			<h5>
-			<a class="nav-link text-light p-2" href="{% url 'inbox' request.user.id %}">
-				Inbox
-				<i class="fas fa-archive"></i>
-			</a>
-			</h5> 
-		  </li>
-		  {% else %}
-		  <li class="nav-item ">
-			<h5>
-			<a class="nav-link text-light p-2" href="{% url 'register' %}">
-				Inbox
-				<i class="fas fa-archive"></i>
-			</a>
-			</h5> 
-		  </li>
-		{% endif %}
-			
-		
-		
-	  
-    </ul>
-</nav>
+	<nav class="navbar navbar-expand-lg navbar-light bg-darkNew  ">
+
+		<h3 class="text-light">ASK</h3>
+		<ul class="navbar-nav  ml-auto ">
+
+
+			{% if user.is_authenticated %}
+			<li class="nav-item ">
+				<h5>
+					<a class="nav-link text-light p-2" href="{% url 'inbox' request.user.id %}">
+						Inbox
+						<i class="fas fa-archive"></i>
+					</a>
+				</h5>
+			</li>
+			{% else %}
+			<li class="nav-item ">
+				<h5>
+					<a class="nav-link text-light p-2" href="{% url 'register' %}">
+						Inbox
+						<i class="fas fa-archive"></i>
+					</a>
+				</h5>
+			</li>
+			{% endif %}
 
 
 
 
-<div class="container">
-	
-	{% if messages %}
-	{% for message in messages %}
+		</ul>
+	</nav>
+
+
+
+
+	<div class="container">
+
+		{% if messages %}
+		{% for message in messages %}
 		<div class="alert alert-{{message.tags}} text-center" role="alert">
 			<h4>{{message}}</h4>
 		</div>
-	{% endfor %}
-	{% endif %}
-	
-		
-	<div class="row">
-		<div class="col-12 d-flex flex-column align-items-center">
-			<div class="form-content-massage shadow-lg p-5  ">
-				<div class="d-flex flex-column align-items-center">
-					<button class='update' style="border: none; background:none ;">
-					<img src="{{getprofile.profile_img.url}} " width="100" height="100" class="rounded-circle">
-					</button>
-					<h3 class="text-center mb-4">{{getprofile.userpro.username}}</h3>
-					<div class="updateform shadow-lg p-2  rounded-lg ">
-						<form method="POST"  enctype="multipart/form-data">
-							{% csrf_token %}
-							<div class="form-group">
-								{{formupdate|crispy}}
-								<button class="btn btn-info btn-sm">Update</button>
-							</div>
-						</form>
-					</div>
-				
-				
-				{% if getprofile.bio %}
-					<h6>{{getprofile.bio}}</h6>
-				{% endif %}
-					
-				</div>
-				
-				<hr>
-				<form method="post">
-					{% csrf_token %}
-				  <div class="form-group">
-				    {{form.messages}}
-  					</div>
+		{% endfor %}
+		{% endif %}
+
+
+		<div class="row">
+			<div class="col-12 d-flex flex-column align-items-center">
+				<div class="form-content-massage shadow-lg p-5  ">
 					<div class="d-flex flex-column align-items-center">
-							
-						<button type="submit" class="btn btn-success btn-lg ">
-							Send
-							<i class="far fa-paper-plane"></i>
+						<button class='update' style="border: none; background:none ;">
+							<img src="{{getprofile.profile_img.url}} " width="100" height="100" class="rounded-circle">
 						</button>
-						
-						{% if request.user.id == getprofile.userpro.id%}
+						<h3 class="text-center mb-4">{{getprofile.userpro.username}}</h3>
+						{% if request.user.id == getprofile.userpro.id %}
+						<div class="updateform shadow-lg p-2  rounded-lg ">
+							<form method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+								<div class="form-group">
+									{{formupdate|crispy}}
+									<button class="btn btn-info btn-sm">Update</button>
+								</div>
+							</form>
+						</div>
+						{% endif %}
+
+						{% if getprofile.bio %}
+						<h6>{{getprofile.bio}}</h6>
+						{% endif %}
+
+					</div>
+
+					<hr>
+					<form method="post">
+						{% csrf_token %}
+						<div class="form-group">
+							{{form.messages}}
+						</div>
+						<div class="d-flex flex-column align-items-center">
+
+							<button type="submit" class="btn btn-success btn-lg ">
+								Send
+								<i class="far fa-paper-plane"></i>
+							</button>
+
+							{% if request.user.id == getprofile.userpro.id%}
 							<small>Share your url to find some messages</small>
 							<p>http://127.0.0.1:8000/profile/{{request.user.profile.slug}} </p>
-						{% endif %}
-							
-					</div>  
-					
-				</form>
+							{% endif %}
+
+						</div>
+
+					</form>
+				</div>
+
+				{% if user.is_authenticated %}
+				<a class="nav-link text-light p-2" href="{% url 'logout' %}">Logout</a>
+				{% endif %}
+
+
 			</div>
-			
-			{% if user.is_authenticated %}
-			<a class="nav-link text-light p-2" href="{% url 'logout' %}">Logout</a>
-	  		{% endif %}
-			
-			
+
 		</div>
-		
 	</div>
-</div>
 
 
 
 
 
-    
+
 </body>
+
 </html>
 {% endblock content %}

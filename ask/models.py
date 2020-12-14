@@ -14,4 +14,3 @@ class Message(models.Model):
         if not self.slug:
             self.slug=slugify(str(self.userProfile))
         super(Message,self).save(*args,**kwargs)
-

@@ -23,6 +23,5 @@ class Profile(models.Model):
 def createprfile(sender,**kwargs):
     if kwargs['created']:
         Profile.objects.create(userpro=kwargs['instance'])
-    pass
     
 post_save.connect(createprfile,sender=User)

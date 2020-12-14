@@ -1,13 +1,13 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .forms import Register,NewLogin,NewMessage,ProfileUpdate
 from django.contrib import messages
-from django.contrib.auth import authenticate , login , logout
+from django.contrib.auth import authenticate, login, logout
 from .models import Profile
 
 # Create your views here.
 def register(request):
    if request.user.is_authenticated == True:
-      profileuser=request.user.id
+      profileuser=request.user.profile.slug
       return redirect(f'profile/{profileuser}')
    form=Register()
    if request.method=='POST':
@@ -32,7 +32,7 @@ def register(request):
 
 def loginv(request,username=None,password=None):
    if request.user.is_authenticated == True:
-      profileuser=request.user.id
+      profileuser=request.user.profile.slug
       return redirect(f'/profile/{profileuser}')
    form=NewLogin()
    if request.method =='POST':
@@ -41,7 +41,7 @@ def loginv(request,username=None,password=None):
       user=authenticate(request,username=username,password=password)
       if user is not None:
          login(request,user)
-         profileuser=request.user.id
+         profileuser=request.user.profile.slug
          return redirect(f'/profile/{profileuser}')
          
    context={
@@ -64,7 +64,8 @@ def profile(request,slug):
          newmassage.userProfile=getprofile
          newmassage.save()
          messages.success(request,'done ✌')
-         form=NewMessage()
+         form = NewMessage()
+         return redirect(f'/profile/{getprofile}')
 
    if request.method=='POST':
       formupdate=ProfileUpdate(request.POST,request.FILES,instance=request.user.profile)
