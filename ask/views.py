@@ -15,10 +15,9 @@ def inbox(request,slug):
     return render(request,'ask/inbox.html',context)
     pass
 
-def deletem(request,slug):
+def deletem(request,id):
     if request.method=='POST':
-        x=Message.objects.get(slug=slug).delete()
-        print(x)
+        x=Message.objects.get(id=id).delete()
     re=request.user.profile.slug
     return redirect(f'/inbox/{re}')
     pass

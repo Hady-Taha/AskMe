@@ -71,7 +71,6 @@ def profile(request,slug):
       formupdate=ProfileUpdate(request.POST,request.FILES,instance=request.user.profile)
       if formupdate.is_valid():
          formupdate.save()
-   
    context={
       'title':'profile',
       'getprofile':getprofile,
